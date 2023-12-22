@@ -14,7 +14,7 @@ function allow_payment_method_for_shipping($available_gateways) {
         $desired_shipping_method_id = 'flat_rate:3';
         $desired_payment_method_id = 'jetpack_custom_gateway_2';
 /**
- * edit `flat_rate:3` with you shipping method id (you will get it by inspect element), 
+ * edit `flat_rate:3` with you shipping method id (you will get it by inspect element, that showing as value="flat_rate:3"), 
  * edit `jetpack_custom_gateway_2` with your desired payment gateway that you want to allow.
 */
 
