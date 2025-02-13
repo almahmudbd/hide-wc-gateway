@@ -1,0 +1,20 @@
+/**
+ * Allow COD for all except when "Courier" shipping method is selected
+ */
+
+add_filter('woocommerce_available_payment_gateways', 'disable_cod_for_courier', 10, 1);
+function disable_cod_for_courier($available_gateways) {
+    if (!is_admin() && is_checkout()) {
+        $chosen_methods = WC()->session->get('chosen_shipping_methods');
+        $chosen_shipping = !empty($chosen_methods) ? $chosen_methods[0] : '';
+
+        // Set your desired shipping method ID and payment method ID
+        $courier_shipping_method_id = 'advanced_flat_rate_shipping'; // Change this to your courier method ID
+        $cod_payment_method_id = 'cod'; // WooCommerce COD payment method ID
+
+        if ($chosen_shipping === $courier_shipping_method_id && isset($available_gateways[$cod_payment_method_id])) {
+            unset($available_gateways[$cod_payment_method_id]);
+        }
+    }
+    return $available_gateways;
+}
